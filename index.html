@@ -1397,10 +1397,6 @@
             <span class="status-dot"></span>
             <span class="status-text">Программа 2026/27</span>
           </div>
-          <button class="btn-pill" id="openPitchBtn">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
-            <span>В чат старост</span>
-          </button>
         </div>
       </nav>
     </header>
@@ -1417,7 +1413,7 @@
       </h1>
       
       <p class="hero-lead">
-        Староста — это не просто дежурство по журналу. Это лидер, который умеет зажечь свой класс, спокойно решать разногласия и создавать события. Четыре прикладных проекта для прокачки навыков старосты в Лицее №177.
+        Четыре прикладных проекта для прокачки навыков старосты в Лицее №177
       </p>
 
       <!-- Clean Stylish Leader Pass Badge (No yellow chip) -->
@@ -1800,12 +1796,9 @@
       </div>
 
       <div class="cta-group">
-        <button class="btn-primary" id="copyPitchBtn">
+        <button class="btn-primary" id="shareSiteBtn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-          Скопировать текст для чата старост
-        </button>
-        <button class="btn-secondary" id="previewPitchBtn">
-          Посмотреть текст обращения
+          Скопировать ссылку на голосование
         </button>
       </div>
     </section>
@@ -1824,40 +1817,10 @@
 
   </div>
 
-  <!-- Modal for Viewing Message Pitch -->
-  <div class="modal-backdrop" id="pitchModal">
-    <div class="modal-box">
-      <button class="modal-close-btn" id="closeModalBtn">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-      <h3 class="modal-title">Текст обращения в чат старост</h3>
-      <p class="modal-sub">Готовое обращение от Варлама к совету старост (5–11 классы):</p>
-      
-      <textarea class="pitch-text-area" id="pitchText" readonly>
-Всем привет! Я Варлам Частковский, староста 5 «Е» класса.
-
-Староста — это лидер класса, и этому тоже нужно учиться. Собрал интерактивный проект с 4 направлениями для прокачки наших навыков на этот учебный год:
-1. Ораторский мастер-класс от Кирилла Ершова (голос матчей «Ак Барса», выпускник нашего лицея).
-2. Практикум по AI-грамотности и безопасности (на выбор: Яндекс с Алисой или Сбер с GigaChat).
-3. Школьный Оскар: Reels-баттл между классами в актовом зале.
-4. Тренинг по разрешению конфликтов и ссор в классе со школьным психологом.
-
-Посмотреть детали и проголосовать за первый проект можно по ссылке:
-https://max-che-01.github.io/varlam-177/
-
-Жду ваши мысли и поддержку!
-      </textarea>
-
-      <div style="display: flex; justify-content: flex-end; gap: 12px;">
-        <button class="btn-primary" id="copyFromModalBtn">Скопировать в буфер</button>
-      </div>
-    </div>
-  </div>
-
   <!-- Notification Toast -->
   <div class="toast" id="toast">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-    <span id="toastMsg">Текст скопирован в буфер обмена!</span>
+    <span id="toastMsg">Ссылка скопирована в буфер обмена!</span>
   </div>
 
   <!-- Interactive JavaScript Logic -->
@@ -1867,7 +1830,7 @@ https://max-che-01.github.io/varlam-177/
       // 1. Dynamic Chalk Handwriting Simulator
       const chalkWriter = document.getElementById('chalkWriter');
       const rewindChalkBtn = document.getElementById('rewindChalkBtn');
-      const chalkQuote = "«Быть старостой — это не дежурство по журналу. Это умение вести свой класс за собой.»";
+      const chalkQuote = "Староста — это не просто дежурство по журналу. Это лидер, который умеет зажечь свой класс, спокойно решать разногласия и создавать события.";
       let charIndex = 0;
       let typingTimeout = null;
 
@@ -1991,40 +1954,18 @@ https://max-che-01.github.io/varlam-177/
         });
       });
 
-      // 6. Modal and Pitch Copy Logic
-      const modal = document.getElementById('pitchModal');
-      const openModalBtn = document.getElementById('openPitchBtn');
-      const previewModalBtn = document.getElementById('previewPitchBtn');
-      const closeModalBtn = document.getElementById('closeModalBtn');
-      const copyPitchBtn = document.getElementById('copyPitchBtn');
-      const copyFromModalBtn = document.getElementById('copyFromModalBtn');
-      const pitchText = document.getElementById('pitchText');
-
-      function openModal() { modal.classList.add('open'); }
-      function closeModal() { modal.classList.remove('open'); }
-
-      if (openModalBtn) openModalBtn.addEventListener('click', openModal);
-      if (previewModalBtn) previewModalBtn.addEventListener('click', openModal);
-      if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
-
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-      });
-
-      function copyTextToClipboard() {
-        navigator.clipboard.writeText(pitchText.value.trim()).then(() => {
-          showToast('Текст для чата старост скопирован!');
-          closeModal();
-        }).catch(() => {
-          pitchText.select();
-          document.execCommand('copy');
-          showToast('Текст скопирован!');
-          closeModal();
+      // 6. Share Site Link Logic
+      const shareSiteBtn = document.getElementById('shareSiteBtn');
+      if (shareSiteBtn) {
+        shareSiteBtn.addEventListener('click', () => {
+          const siteUrl = 'https://max-che-01.github.io/varlam-177/';
+          navigator.clipboard.writeText(siteUrl).then(() => {
+            showToast('Ссылка на сайт скопирована в буфер!');
+          }).catch(() => {
+            showToast('Ссылка: https://max-che-01.github.io/varlam-177/');
+          });
         });
       }
-
-      if (copyPitchBtn) copyPitchBtn.addEventListener('click', copyTextToClipboard);
-      if (copyFromModalBtn) copyFromModalBtn.addEventListener('click', copyTextToClipboard);
 
       function showToast(msg) {
         const toast = document.getElementById('toast');
